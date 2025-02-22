@@ -21,7 +21,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('api.login');
 
 // Book
 Route::middleware(['auth:sanctum', 'role:admin,editor,viewer',])->prefix('books')->group(function () {
-    Route::get('/', [BookController::class, 'index'])->name('api.index');
+    Route::get('/', [BookController::class, 'index'])->middleware(['auth:sanctum', 'role:admin,viewer'])->name('api.index');
 
     Route::middleware(['auth:sanctum', 'role:admin,editor'])->group(function () {
         Route::post('/store', [BookController::class, 'store'])->name('api.store');

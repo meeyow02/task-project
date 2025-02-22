@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ResponseResource;
 use App\Models\User;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -33,7 +32,7 @@ class AuthController extends Controller
 
             return response()->json(new ResponseResource('User register successfully.', []), 201);
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            return response()->json(['message' => 'Failed to register' . $e->getMessage()], 500);
         }
     }
 
@@ -58,7 +57,7 @@ class AuthController extends Controller
                 'name' => $user->name,
             ]), 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()]);
+            return response()->json(['message' => 'Failed to login' . $e->getMessage()]);
         }
     }
 }
